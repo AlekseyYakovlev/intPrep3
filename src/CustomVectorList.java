@@ -1,4 +1,3 @@
-import java.util.List;
 
 public class CustomVectorList<E> {
 
@@ -9,66 +8,56 @@ public class CustomVectorList<E> {
     Node<E> last;
 
     public CustomVectorList() {
-        current =null;
+        current = null;
         counter = curPos = 0;
         first = null;
         last = null;
     }
 
-    public int size(){
+    public int size() {
         return counter;
     }
 
 
     public void add(E element) {
         if (counter == 0) {
-            current = first = last = new Node<>(element,null,null);
+            current = first = last = new Node<>(element, null, null);
         } else {
-            current=last= new Node(element,null,current);
+            Node<E> prev = current;
+            current = new Node(element, prev.next, prev);
+            if (prev.next == null) last = current;
+            prev.next = current;
         }
+        counter++;
+        curPos++;
     }
 
 
-
-
     public E next() {
+        if (current != null) {
+            E element = current.element;
+            current = current.next;
+            return element;
+        } else return null;
+    }
 
-        return
+    public boolean hasNext(){
+        return current!=null;
+    }
+
+    public void goToFirst(){
+        current=first;
     }
 
 
     class Node<E> {
         E element = null;
-        E next = null;
-        E previous = null;
+        Node<E> next = null;
+        Node<E> previous = null;
 
-        public Node(E element, E next, E previous) {
+        Node(E element, Node<E> next, Node<E> previous) {
             this.element = element;
             this.next = next;
-            this.previous = previous;
-        }
-
-        public E getElement() {
-            return element;
-        }
-
-        public void setElement(E element) {
-            this.element = element;
-        }
-
-        public E getNext() {
-            return next;
-        }
-
-        public void setNext(E next) {
-            this.next = next;
-        }
-
-        public E getPrevious() {
-            return previous;
-        }
-
-        public void setPrevious(E previous) {
             this.previous = previous;
         }
     }
