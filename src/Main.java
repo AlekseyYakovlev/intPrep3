@@ -26,5 +26,8 @@ public class Main {
 
         while (list.hasNext()) System.out.println(list.next().toString());
 
+        System.out.println("Prime numbers < 200:");
+        System.out.println(PrimeNumbers.find(400).toString());
+
     }
 }
